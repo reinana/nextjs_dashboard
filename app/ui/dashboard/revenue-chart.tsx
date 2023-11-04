@@ -1,7 +1,8 @@
 import { generateYAxis } from '@/app/lib/utils';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { lusitana } from '@/app/ui/fonts';
-import { Revenue } from '@/app/lib/definitions';
+// import { Revenue } from '@/app/lib/definitions'; //revenue 収益 の型{月、収益}
+import { fetchRevenue } from '@/app/lib/data';
 
 // This component is representational only.
 // For data visualization UI, check out:
@@ -9,14 +10,11 @@ import { Revenue } from '@/app/lib/definitions';
 // https://www.chartjs.org/
 // https://airbnb.io/visx/
 
-export default async function RevenueChart({
-    revenue,
-}: {
-    revenue: Revenue[];
-}) {
+export default async function RevenueChart() {
+    const revenue = await fetchRevenue(); // ここでフェッチを呼ぶ
     const chartHeight = 350;
     // NOTE: comment in this code when you get to this point in the course
-
+    // 収益の配列と 最高値が返ってくる
     const { yAxisLabels, topLabel } = generateYAxis(revenue);
 
     if (!revenue || revenue.length === 0) {
